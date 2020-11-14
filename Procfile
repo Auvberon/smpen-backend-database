@@ -1,1 +1,1 @@
-web: gunicorn smpn.wsgi --log-file -
+web: gunicorn smpn.wsgi
