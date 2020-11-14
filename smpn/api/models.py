@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 class user(models.Model):
-    uname = models.CharField(max_length = 144)
+    uname = models.CharField(max_length = 144, unique = True)
     passwd = models.CharField(max_length = 144)
     permission = models.CharField(max_length = 144)
     def __str__(self):
