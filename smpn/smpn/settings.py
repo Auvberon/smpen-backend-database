@@ -128,4 +128,4 @@ USE_TZ = True
 import mimetypes
 mimetypes.add_type("text/css", ".css", True)
 
-STATIC_URL = '/static/'
+STATIC_URL = '/static/rest_famework/'
