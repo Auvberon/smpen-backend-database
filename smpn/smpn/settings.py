@@ -25,7 +25,7 @@ SECRET_KEY = '418xov$$vm)umr)=)c6#ic#_nz$g2#d@!@*$)_u40@$bn5-vr+'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['smpnapi.herokuapp.com', '127.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
