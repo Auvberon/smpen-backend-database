@@ -128,7 +128,7 @@ USE_TZ = True
 # import mimetypes
 # mimetypes.add_type("text/css", ".css", True)
 
-# import os
+import os
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # STATIC_URL = '/static/'
