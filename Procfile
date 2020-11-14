@@ -1,0 +1,1 @@
+web: gunicorn smpn.wsgi --log-file -
