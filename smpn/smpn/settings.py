@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'api',
     'rest_framework',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -51,6 +52,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 ROOT_URLCONF = 'smpn.urls'
@@ -137,3 +141,6 @@ STATICFILES_DIRS = (
     ("images", os.path.join(STATIC_ROOT,'images')),
     ("fonts", os.path.join(STATIC_ROOT,'fonts')),
 )
+
+
+CORS_ALLOW_ALL_ORIGIN = True
