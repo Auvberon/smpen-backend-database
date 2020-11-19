@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404
 from django.http import Http404
 
 from .models import user, inventory, logging
-from .serializers import userSerializer, inventorySerializer, loggingSerializer
+from .serializers import userSerializer, inventorySerializer, loggingSerializer, inventoryDetailSerializer
 
 class userView(APIView):
     def get(self, request):
@@ -42,7 +42,7 @@ class inventoryDetail(APIView):
 
     def get(self, request, get_uid, format=None):
         snippet = self.get_object(get_uid)
-        serializer = inventorySerializer(snippet)
+        serializer = inventoryDetailSerializer(snippet)
         return Response(serializer.data)
 
 class inventoryView(APIView):
