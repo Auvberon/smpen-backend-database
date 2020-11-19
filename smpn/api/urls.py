@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import userView, inventoryView, loggingView
+from .views import userView, inventoryView, loggingView, inventoryDetail
 
 app_name = "users"
 
@@ -11,6 +11,7 @@ urlpatterns = [
     # path('users/delete/<int:delete_user_pk>', userView.as_view()),
 
     path('inventory/', inventoryView.as_view()),
+    path('inventory/<get_uid>', inventoryDetail.as_view()),
     path('inventory/update/<logical_uid>', inventoryView.as_view()),
 
     path('logging/', loggingView.as_view()),

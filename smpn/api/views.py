@@ -1,6 +1,7 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
+from django.http import Http404
 
 from .models import user, inventory, logging
 from .serializers import userSerializer, inventorySerializer, loggingSerializer
@@ -31,6 +32,18 @@ class userView(APIView):
     #     users = get_object_or_404(user.objects.all(), pk=delete_user_pk)
     #     users.delete()
     #     return Response({"message": "User with id `{}` has been deleted.".format(delete_user_pk)},status=204)
+
+class inventoryDetail(APIView):
+    def get_object(self, get_uid):
+        try:
+            return inventory.objects.get(pk=get_uid)
+        except inventory.DoesNotExist:
+            raise Http404
+
+    def get(self, request, get_uid, format=None):
+        snippet = self.get_object(get_uid)
+        serializer = inventorySerializer(snippet)
+        return Response(serializer.data)
 
 class inventoryView(APIView):
     def get(self, request):
