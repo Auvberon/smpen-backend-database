@@ -8,18 +8,29 @@ class user(models.Model):
     def __str__(self):
         return self.uname
 
+CHOICES = (
+    (True, "Listed"),
+    (False, "Unlisted")
+)
+
 class inventory(models.Model):
-    uid = models.CharField(primary_key = True, max_length = 50, unique = True)
+    logical_uid = models.CharField(primary_key = True, max_length = 50, unique = True)
     name = models.CharField(max_length = 50, null = True)
     qty = models.IntegerField(blank = True, null = True)
+    status = models.BooleanField(null = True, choices = CHOICES)
     def __str__(self):
-        return self.uid
+        return self.logical_uid
+
+CHOICES_LOGGING = (
+    (True, "In"),
+    (False, "Out")
+)
 
 class logging(models.Model):
     id = models.AutoField(primary_key = True)
-    uid = models.ForeignKey('inventory', to_field="uid", on_delete=models.CASCADE)
-    status = models.CharField(max_length = 10)
+    logical_uid = models.ForeignKey('inventory', to_field="logical_uid", on_delete=models.CASCADE)
+    status = models.BooleanField(null = True, choices = CHOICES_LOGGING)
     qty = models.IntegerField()
     time = models.CharField(max_length = 144)
     def __str__(self):
-        return str(self.uid) if self.uid else ''
+        return str(self.logical_uid) if self.logical_uid else ''
