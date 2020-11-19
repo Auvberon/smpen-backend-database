@@ -11,7 +11,7 @@ urlpatterns = [
     # path('users/delete/<int:delete_user_pk>', userView.as_view()),
 
     path('inventory/', inventoryView.as_view()),
-    path('inventory/update/<uid>', inventoryView.as_view()),
+    path('inventory/update/<logical_uid>', inventoryView.as_view()),
 
     path('logging/', loggingView.as_view()),
 ]
