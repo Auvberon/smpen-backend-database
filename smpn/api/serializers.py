@@ -39,7 +39,7 @@ class inventorySerializer(serializers.Serializer):
 
 class loggingSerializer(serializers.Serializer):
     logical_uid = serializers.CharField(max_length = 50)
-    status = serializers.CharField(max_length = 50)
+    status = serializers.BooleanField()
     qty = serializers.IntegerField()
     time = serializers.CharField(max_length = 144)
 
