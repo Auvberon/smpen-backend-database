@@ -23,10 +23,10 @@ class inventory(models.Model):
 
 class logging(models.Model):
     id = models.AutoField(primary_key=True, unique = True)
-    logical_uid = models.CharField(max_length = 50)
+    logical_uid = models.ForeignKey('inventory', to_field="logical_uid", on_delete=models.CASCADE)
     status = models.CharField(max_length=144)
     qty = models.IntegerField()
     time = models.CharField(max_length = 144)
     
     def __str__(self):
-        return self.logical_uid
+        return str(self.logical_uid) if self.logical_uid else ''
