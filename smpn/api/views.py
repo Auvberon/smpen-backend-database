@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404
 from django.http import Http404
 
 from .models import user, inventory, logging
-from .serializers import userSerializer, inventorySerializer, loggingSerializer, inventoryDetailSerializer
+from .serializers import userSerializer, inventorySerializer, inventoryDetailSerializer, loggingSerializer
 
 class userView(APIView):
     def get(self, request):
@@ -56,11 +56,11 @@ class loggingView(APIView):
     def get(self, request):
         loggings = logging.objects.all()
         serializer = loggingSerializer(loggings, many=True)
-        return Response({"Logging" : serializer.data})
-
+        return Response({"logging": serializer.data})
+    
     def post(self, request):
         loggings = request.data.get('logging')
         serializer = loggingSerializer(data=loggings)
-        if serializer.is_valid(raise_exception=False):
+        if serializer.is_valid(raise_exception=True):
             logging_saved = serializer.save()
-            return Response({"success": "Item '{}' created successfully".format(logging_saved.name)})
+        return Response({"success": "Logging '{}' created successfully".format(logging_saved.logical_uid)})

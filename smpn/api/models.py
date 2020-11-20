@@ -28,9 +28,9 @@ CHOICES_LOGGING = (
 
 class logging(models.Model):
     logical_uid = models.CharField(primary_key = True, max_length = 50, unique = True)
-    status = models.BooleanField(null = True, choices = CHOICES_LOGGING)
+    status = models.CharField(max_length=144)
     qty = models.IntegerField()
     time = models.CharField(max_length = 144)
-
+    
     def __str__(self):
-        return str(self.logical_uid) if self.logical_uid else ''
+        return self.logical_uid
