@@ -71,3 +71,10 @@ class loggingView(APIView):
         loggings = logging.objects.all()
         serializer = loggingSerializer(loggings, many=True)
         return Response({"Logging" : serializer.data})
+
+    def post(self, request):
+        loggings = request.data.get('logging')
+        serializer = loggingSerializer(data=loggings)
+        if serializer.is_valid(raise_exception=False):
+            logging_saved = serializer.save()
+            return Response({"success": "Item '{}' created successfully".format(logging_saved.name)})
