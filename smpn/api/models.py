@@ -27,10 +27,10 @@ CHOICES_LOGGING = (
 )
 
 class logging(models.Model):
-    id = models.AutoField(primary_key = True)
     logical_uid = models.ForeignKey('inventory', to_field="logical_uid", on_delete=models.CASCADE)
     status = models.BooleanField(null = True, choices = CHOICES_LOGGING)
     qty = models.IntegerField()
     time = models.CharField(max_length = 144)
+
     def __str__(self):
         return str(self.logical_uid) if self.logical_uid else ''
