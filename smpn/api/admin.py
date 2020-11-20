@@ -6,3 +6,4 @@ from .models import user, inventory, logging
 admin.site.register(user)
 admin.site.register(inventory)
 admin.site.register(logging)
+

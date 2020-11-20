@@ -21,13 +21,9 @@ class inventory(models.Model):
     def __str__(self):
         return self.logical_uid
 
-CHOICES_LOGGING = (
-    (True, "In"),
-    (False, "Out")
-)
-
 class logging(models.Model):
-    logical_uid = models.CharField(primary_key = True, max_length = 50, unique = True)
+    id = models.AutoField(primary_key=True, unique = True)
+    logical_uid = models.CharField(max_length = 50)
     status = models.CharField(max_length=144)
     qty = models.IntegerField()
     time = models.CharField(max_length = 144)
