@@ -19,20 +19,6 @@ class userView(APIView):
             user_saved = serializer.save()
         return Response({"success": "User '{}' created successfully".format(user_saved.uname)})
 
-    # def put(self, request, update_user_pk):
-    #     saved_user = get_object_or_404(user.objects.all(), pk=update_user_pk)
-    #     data = request.data.get('user')
-    #     serializer = userSerializer(instance=saved_user, data=data, partial=True)
-    #     if serializer.is_valid(raise_exception=True):
-    #         user_saved = serializer.save()
-    #     return Response({"success": "User '{}' updated successfully".format(user_saved.uname)})
-
-    # def delete(self, request, delete_user_pk):
-    #     # Get object with this pk
-    #     users = get_object_or_404(user.objects.all(), pk=delete_user_pk)
-    #     users.delete()
-    #     return Response({"message": "User with id `{}` has been deleted.".format(delete_user_pk)},status=204)
-
 class inventoryDetail(APIView):
     def get_object(self, get_uid):
         try:
