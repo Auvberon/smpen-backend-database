@@ -27,7 +27,7 @@ CHOICES_LOGGING = (
 )
 
 class logging(models.Model):
-    logical_uid = models.ForeignKey('inventory', to_field="logical_uid", on_delete=models.CASCADE)
+    logical_uid = models.CharField(primary_key = True, max_length = 50, unique = True)
     status = models.BooleanField(null = True, choices = CHOICES_LOGGING)
     qty = models.IntegerField()
     time = models.CharField(max_length = 144)
