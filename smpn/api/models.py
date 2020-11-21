@@ -23,7 +23,8 @@ class inventory(models.Model):
 
 class logging(models.Model):
     id = models.AutoField(primary_key=True, unique = True)
-    logical_uid = models.ForeignKey('inventory', to_field="logical_uid", on_delete=models.CASCADE)
+    # logical_uid = models.ForeignKey('inventory', to_field="logical_uid", on_delete=models.CASCADE)
+    logical_uid = models.CharField(max_length=144)
     status = models.CharField(max_length=144)
     qty = models.IntegerField()
     time = models.CharField(max_length = 144)
