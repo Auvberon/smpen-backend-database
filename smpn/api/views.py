@@ -54,7 +54,7 @@ class inventoryView(APIView):
         serializer = inventorySerializer(data=inventories)
         if serializer.is_valid(raise_exception=True):
             inventory_saved = serializer.save()
-            return Response({"success": "Item '{}' created successfully".format(inventory_saved.name)})
+        return Response({"success": "Item '{}' created successfully".format(inventory_saved.name)})
 
     def put(self, request, logical_uid):
         saved_inventory = get_object_or_404(inventory.objects.all(), pk=logical_uid)
