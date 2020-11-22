@@ -7,14 +7,11 @@ app_name = "api"
 # app_name will help us do a reverse look-up latter.
 urlpatterns = [
     path('users/', userView.as_view()),
-    # path('users/update/<int:update_user_pk>', userView.as_view()),
-    # path('users/delete/<int:delete_user_pk>', userView.as_view()),
 
     path('inventory/', inventoryView.as_view()),
     path('inventory/qty/<get_uid>', inventoryQty.as_view()),
     path('inventory/detail/<detailed_uid>', inventoryDetail.as_view()),
     path('inventory/update/<logical_uid>', inventoryView.as_view()),
+
     path('logging/', loggingView.as_view()),
-
-
 ]

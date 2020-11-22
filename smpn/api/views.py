@@ -36,7 +36,7 @@ class inventoryDetail(APIView):
         try:
             return inventory.objects.get(pk=detailed_uid)
         except inventory.DoesNotExist:
-            raise Http404
+            raise Http404("Item not yet exist")
 
     def get(self, request, detailed_uid, format=None):
         snippet = self.get_object(detailed_uid)
