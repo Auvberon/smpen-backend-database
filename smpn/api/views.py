@@ -52,7 +52,7 @@ class inventoryView(APIView):
     def post(self, request):
         inventories = request.data.get('inventory')
         serializer = inventorySerializer(data=inventories)
-        if serializer.is_valid(raise_exception=False):
+        if serializer.is_valid(raise_exception=True):
             inventory_saved = serializer.save()
             return Response({"success": "Item '{}' created successfully".format(inventory_saved.name)})
 
