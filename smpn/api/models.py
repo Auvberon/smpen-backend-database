@@ -1,12 +1,6 @@
 from django.db import models
 
-# Create your models here.
-class user(models.Model):
-    uname = models.CharField(max_length = 144, unique = True)
-    passwd = models.CharField(max_length = 144)
-    permission = models.CharField(max_length = 144)
-    def __str__(self):
-        return self.uname
+# Create your models here
 
 class inventory(models.Model):
     logical_uid = models.CharField(primary_key = True, max_length = 50, unique = True)

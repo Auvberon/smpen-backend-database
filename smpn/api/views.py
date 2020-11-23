@@ -2,22 +2,43 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
 from django.http import Http404
+from rest_framework import permissions, status
+from django.contrib.auth.models import User
+from django.http import HttpResponseRedirect
+from rest_framework.decorators import api_view
 
-from .models import user, logging, inventory
-from .serializers import userSerializer, loggingSerializer, inventorySerializer, inventoryQtySerializer, inventoryDetailSerializer
+from .models import logging, inventory
+from .serializers import loggingSerializer, inventorySerializer, inventoryQtySerializer, inventoryDetailSerializer, UserSerializer, UserSerializerWithToken
 
-class userView(APIView):
+@api_view(['GET'])
+def current_user(request):
+    """
+    Determine the current user by their token, and return their data
+    """
+    
+    serializer = UserSerializer(request.user)
+    return Response(serializer.data)
+
+
+class UserList(APIView):
+    """
+    Create a new user. It's called 'UserList' because normally we'd have a get
+    method here too, for retrieving a list of all User objects.
+    """
+
+    permission_classes = (permissions.AllowAny,)
+
     def get(self, request):
-        users = user.objects.all()
-        serializer = userSerializer(users, many=True)
+        users = User.objects.all()
+        serializer = UserSerializer(users, many=True)
         return Response({"user" : serializer.data})
 
-    def post(self, request):
-        users = request.data.get('user')
-        serializer = userSerializer(data=users)
-        if serializer.is_valid(raise_exception=True):
-            user_saved = serializer.save()
-        return Response({"success": "User '{}' created successfully".format(user_saved.uname)})
+    def post(self, request, format=None):
+        serializer = UserSerializerWithToken(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class inventoryQty(APIView):
     def get_object(self, get_uid):

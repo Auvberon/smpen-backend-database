@@ -1,12 +1,13 @@
 from django.urls import path
 
-from .views import userView, loggingView, inventoryView, inventoryQty, inventoryDetail
+from .views import loggingView, inventoryView, inventoryQty, inventoryDetail, UserList, current_user
 
 app_name = "api"
 
 # app_name will help us do a reverse look-up latter.
 urlpatterns = [
-    path('users/', userView.as_view()),
+    path('current_user/', current_user),
+    path('users/', UserList.as_view()),
 
     path('inventory/', inventoryView.as_view()),
     path('inventory/qty/<get_uid>', inventoryQty.as_view()),
