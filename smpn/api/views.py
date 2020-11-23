@@ -62,7 +62,7 @@ class inventoryView(APIView):
         serializer = inventorySerializer(instance=saved_inventory, data=data, partial=True)
         if serializer.is_valid(raise_exception=True):
             inventory_saved = serializer.save()
-        return Response({"success": "UID {}'s name updated successfully to {}".format(inventory_saved.logical_uid, inventory_saved.name)})
+        return Response({"success": "{}'s quantity updated successfully to {}".format(inventory_saved.logical_uid, inventory_saved.qty)})
 
 class loggingView(APIView):
     def get(self, request):
@@ -73,6 +73,7 @@ class loggingView(APIView):
     def post(self, request):
         loggings = request.data.get('logging')
         serializer = loggingSerializer(data=loggings)
+        print(serializer)
         if serializer.is_valid(raise_exception=True):
             logging_saved = serializer.save()
-        return Response({"success": "Logging '{}' created successfully".format(logging_saved.logical_uid)})
+        return Response({"success": "Logging for {} created successfully".format(logging_saved.logical_uid)})

@@ -17,10 +17,11 @@ class inventory(models.Model):
 
 class logging(models.Model):
     id = models.AutoField(primary_key=True, unique = True)
-    logical_uid = models.CharField(max_length=144)
+    logical_uid = models.CharField(max_length = 144, default="")
     status = models.CharField(max_length=144)
     qty = models.IntegerField()
     time = models.CharField(max_length = 144)
+    warehouse = models.CharField(max_length = 144, default = "")
     
     def __str__(self):
         return str(self.logical_uid) if self.logical_uid else ''

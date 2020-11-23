@@ -47,6 +47,7 @@ class loggingSerializer(serializers.Serializer):
     status = serializers.CharField(max_length=144)
     qty = serializers.IntegerField()
     time = serializers.CharField(max_length = 144)
+    warehouse = serializers.CharField(max_length = 144)
 
     def create(self, validated_data):
         return logging.objects.create(**validated_data)
