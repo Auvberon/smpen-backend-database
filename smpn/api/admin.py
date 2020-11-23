@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import user, inventory, logging
+from .models import user, logging, inventory
 
 # Register your models here.
 

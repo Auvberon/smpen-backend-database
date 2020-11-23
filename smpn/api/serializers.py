@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import user, inventory, logging
+from .models import user, logging, inventory
 
 class userSerializer(serializers.Serializer):
     uname = serializers.CharField(max_length=144)
@@ -27,8 +27,8 @@ class inventoryDetailSerializer(serializers.Serializer):
     qty = serializers.IntegerField()
 
 class inventorySerializer(serializers.Serializer):
-    logical_uid = serializers.CharField(max_length = 50)
-    name = serializers.CharField(max_length = 50)
+    logical_uid = serializers.CharField(max_length=50)
+    name = serializers.CharField(max_length=50)
     qty = serializers.IntegerField()
 
     def create(self, validated_data):

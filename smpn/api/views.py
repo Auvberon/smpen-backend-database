@@ -3,8 +3,8 @@ from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
 from django.http import Http404
 
-from .models import user, inventory, logging
-from .serializers import userSerializer, inventorySerializer, inventoryQtySerializer, loggingSerializer, inventoryDetailSerializer
+from .models import user, logging, inventory
+from .serializers import userSerializer, loggingSerializer, inventorySerializer, inventoryQtySerializer, inventoryDetailSerializer
 
 class userView(APIView):
     def get(self, request):
@@ -43,26 +43,18 @@ class inventoryDetail(APIView):
         serializer = inventoryDetailSerializer(snippet)
         return Response(serializer.data)
 
-class InventoryPost(APIView):
-    def post(self, request):
-        inventories = request.data.get('inventory')
-        serializer = inventorySerializer(data = inventories)
-        if serializer.is_valid(raise_exception=True):
-            inventory_saved = serializer.save()
-        return Response({"success": "Item '{}' created successfully".format(inventory_saved.name)})
-
 class inventoryView(APIView):
     def get(self, request):
         inventories = inventory.objects.all()
         serializer = inventorySerializer(inventories, many=True)
         return Response({"Inventory" : serializer.data})
 
-    # def post(self, request):
-    #     inventories = request.data.get('inventory')
-    #     serializer = inventorySerializer(data=inventories)
-    #     if serializer.is_valid(raise_exception=True):
-    #         inventory_saved = serializer.save()
-    #     return Response({"success": "Item '{}' created successfully".format(inventory_saved.name)})
+    def post(self, request, format=None):
+        inventories = request.data.get('Inventory')
+        serializer = inventorySerializer(data=inventories)
+        if serializer.is_valid(raise_exception=True):
+            inventory_saved = serializer.save()
+        return Response({"success": "Item '{}' created successfully".format(inventory_saved.name)})
 
     def put(self, request, logical_uid):
         saved_inventory = get_object_or_404(inventory.objects.all(), pk=logical_uid)
