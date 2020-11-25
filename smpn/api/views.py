@@ -8,7 +8,7 @@ from django.http import HttpResponseRedirect
 from rest_framework.decorators import api_view
 
 from .models import logging, inventory
-from .serializers import loggingSerializer, inventorySerializer, inventoryQtySerializer, inventoryDetailSerializer, UserSerializer, UserSerializerWithToken
+from .serializers import loggingSerializer, inventorySerializer, inventoryQtySerializer, inventoryDetailSerializer, UserSerializer, UserSerializerWithToken,loggingSerializerGet
 
 @api_view(['GET'])
 def current_user(request):
@@ -88,7 +88,7 @@ class inventoryView(APIView):
 class loggingView(APIView):
     def get(self, request):
         loggings = logging.objects.all()
-        serializer = loggingSerializer(loggings, many=True)
+        serializer = loggingSerializerGet(loggings, many=True)
         return Response({"logging": serializer.data})
     
     def post(self, request):

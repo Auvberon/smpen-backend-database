@@ -61,6 +61,13 @@ class inventorySerializer(serializers.Serializer):
         instance.save()
         return instance
 
+class loggingSerializerGet(serializers.Serializer):
+    logical_uid = serializers.CharField(max_length=50)
+    status = serializers.CharField(max_length=144)
+    qty = serializers.IntegerField()
+    time = serializers.CharField(max_length = 144)
+    warehouse = serializers.CharField(max_length = 144)
+
 class loggingSerializer(serializers.ModelSerializer):
     # logical_uid = serializers.CharField(max_length=50)
     # logical_uid = serializers.RelatedField(source='Inventory', read_only=True)

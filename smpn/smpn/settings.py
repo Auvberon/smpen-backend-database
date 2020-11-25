@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'api',
     'rest_framework',
     'corsheaders',
+    'rest_framework_api_key',
 ]
 
 MIDDLEWARE = [
@@ -146,6 +147,7 @@ STATICFILES_DIRS = (
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
+        # "rest_framework_api_key.permissions.HasAPIKey",
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
@@ -159,3 +161,5 @@ JWT_AUTH = {
 }
 
 CORS_ORIGIN_ALLOW_ALL = True
+
+API_KEY_CUSTOM_HEADER = "HTTP_X_API_KEY"
