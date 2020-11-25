@@ -6,3 +6,4 @@ from .models import logging, inventory
 admin.site.register(inventory)
 admin.site.register(logging)
 
+#comment here
