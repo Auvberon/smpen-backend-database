@@ -61,12 +61,18 @@ class inventorySerializer(serializers.Serializer):
         instance.save()
         return instance
 
-class loggingSerializer(serializers.Serializer):
-    logical_uid = serializers.CharField(max_length=50)
+class loggingSerializer(serializers.ModelSerializer):
+    # logical_uid = serializers.CharField(max_length=50)
+    # logical_uid = serializers.RelatedField(source='Inventory', read_only=True)
+    logicaluid = serializers.RelatedField(source='logical_uid', read_only=True)
     status = serializers.CharField(max_length=144)
     qty = serializers.IntegerField()
     time = serializers.CharField(max_length = 144)
     warehouse = serializers.CharField(max_length = 144)
+
+    class Meta:
+        model = logging
+        fields = "__all__"
 
     def create(self, validated_data):
         return logging.objects.create(**validated_data)
