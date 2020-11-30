@@ -13,6 +13,9 @@ urlpatterns = [
     path('inventory/qty/<get_uid>', inventoryQty.as_view()),
     path('inventory/detail/<detailed_uid>', inventoryDetail.as_view()),
     path('inventory/update/<logical_uid>', inventoryView.as_view()),
+    path('inventory/delete/<deleted_logical_uid>', inventoryView.as_view()),
 
     path('logging/', loggingView.as_view()),
+    path('logging/update/<update_id>', loggingView.as_view()),
+    path('logging/delete/<delete_id>', loggingView.as_view()),
 ]

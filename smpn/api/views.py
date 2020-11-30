@@ -85,6 +85,11 @@ class inventoryView(APIView):
             inventory_saved = serializer.save()
         return Response({"success": "{}'s quantity updated successfully to {}".format(inventory_saved.logical_uid, inventory_saved.qty)})
 
+    def delete(self, request, deleted_logical_uid):
+        inventories = get_object_or_404(inventory.objects.all(), pk = deleted_logical_uid)
+        inventories.delete()
+        return Response({"message": "Item with logical_uid `{}` has been deleted.".format(deleted_logical_uid)},status=204)
+
 class loggingView(APIView):
     def get(self, request):
         loggings = logging.objects.all()
@@ -98,3 +103,16 @@ class loggingView(APIView):
         if serializer.is_valid(raise_exception=True):
             logging_saved = serializer.save()
         return Response({"success": "Logging for {} created successfully".format(logging_saved.logical_uid)})
+
+    def put(self, request, update_id):
+        saved_inventory = get_object_or_404(logging.objects.all(), pk=update_id)
+        data = request.data.get('logging')
+        serializer = loggingSerializer(instance=saved_inventory, data=data, partial=True)
+        if serializer.is_valid(raise_exception=True):
+            logging_saved = serializer.save()
+        return Response({"success": "{}'s log updated".format(logging_saved.id)})
+
+    def delete(self, request, delete_id):
+        loggings = get_object_or_404(logging.objects.all(), pk = delete_id)
+        loggings.delete()
+        return Response({"message": "Log with id `{}` has been deleted.".format(delete_id)},status=204)
