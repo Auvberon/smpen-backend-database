@@ -71,7 +71,6 @@ class loggingSerializerGet(serializers.Serializer):
     warehouse = serializers.CharField(max_length = 144)
 
 class loggingSerializer(serializers.ModelSerializer):
-    id = serializers.IntegerField()
     logicaluid = serializers.RelatedField(source='logical_uid', read_only=True)
     status = serializers.CharField(max_length=144)
     qty = serializers.IntegerField()
