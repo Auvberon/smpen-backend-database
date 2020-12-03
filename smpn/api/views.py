@@ -50,9 +50,6 @@ class UserList(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class inventoryQty(APIView):
-    @method_decorator(cache_page(60*60*2))
-    @method_decorator(vary_on_cookie)
-
     def get_object(self, get_uid):
         try:
             return inventory.objects.get(pk=get_uid)
@@ -65,10 +62,6 @@ class inventoryQty(APIView):
         return Response(serializer.data)
 
 class inventoryDetail(APIView):
-    @method_decorator(cache_page(60*60*2))
-    @method_decorator(vary_on_cookie)
-
-
     def get_object(self, detailed_uid):
         try:
             return inventory.objects.get(pk=detailed_uid)
@@ -92,7 +85,7 @@ class inventoryDetail(APIView):
 class inventoryView(APIView):
     @method_decorator(cache_page(60*60*2))
     @method_decorator(vary_on_cookie)
-
+    
     def get(self, request):
         inventories = inventory.objects.all()
         serializer = inventorySerializer(inventories, many=True)
@@ -121,7 +114,6 @@ class inventoryView(APIView):
 class loggingView(APIView):
     @method_decorator(cache_page(60*60*2))
     @method_decorator(vary_on_cookie)
-    
     def get(self, request):
         loggings = logging.objects.all()
         serializer = loggingSerializerGet(loggings, many=True)
