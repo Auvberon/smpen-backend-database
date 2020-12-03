@@ -1,3 +1,7 @@
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
+from django.views.decorators.vary import vary_on_cookie
+
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
@@ -6,6 +10,8 @@ from rest_framework import permissions, status
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from rest_framework.decorators import api_view
+
+
 
 from .models import logging, inventory
 from .serializers import loggingSerializer, inventorySerializer, inventoryQtySerializer, inventoryDetailSerializer, UserSerializer, UserSerializerWithToken,loggingSerializerGet
@@ -28,6 +34,9 @@ class UserList(APIView):
 
     permission_classes = (permissions.AllowAny,)
 
+    @method_decorator(cache_page(60*60*2))
+    @method_decorator(vary_on_cookie)
+
     def get(self, request):
         users = User.objects.all()
         serializer = UserSerializer(users, many=True)
@@ -41,6 +50,9 @@ class UserList(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class inventoryQty(APIView):
+    @method_decorator(cache_page(60*60*2))
+    @method_decorator(vary_on_cookie)
+
     def get_object(self, get_uid):
         try:
             return inventory.objects.get(pk=get_uid)
@@ -53,6 +65,10 @@ class inventoryQty(APIView):
         return Response(serializer.data)
 
 class inventoryDetail(APIView):
+    @method_decorator(cache_page(60*60*2))
+    @method_decorator(vary_on_cookie)
+
+
     def get_object(self, detailed_uid):
         try:
             return inventory.objects.get(pk=detailed_uid)
@@ -74,6 +90,9 @@ class inventoryDetail(APIView):
         
 
 class inventoryView(APIView):
+    @method_decorator(cache_page(60*60*2))
+    @method_decorator(vary_on_cookie)
+
     def get(self, request):
         inventories = inventory.objects.all()
         serializer = inventorySerializer(inventories, many=True)
@@ -100,6 +119,9 @@ class inventoryView(APIView):
         return Response({"message": "Item with logical_uid `{}` has been deleted.".format(deleted_logical_uid)},status=204)
 
 class loggingView(APIView):
+    @method_decorator(cache_page(60*60*2))
+    @method_decorator(vary_on_cookie)
+    
     def get(self, request):
         loggings = logging.objects.all()
         serializer = loggingSerializerGet(loggings, many=True)
