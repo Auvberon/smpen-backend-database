@@ -40,7 +40,7 @@ class UserSerializerWithToken(serializers.ModelSerializer):
 class inventoryQtySerializer(serializers.Serializer):
     qty = serializers.IntegerField()
 
-class inventoryPutSerializer(serializers.Serializer):
+class inventoryDetailSerializer(serializers.Serializer):
     logical_uid = serializers.CharField(max_length = 50)
     name = serializers.CharField(max_length = 50)
     qty = serializers.IntegerField()
@@ -52,11 +52,6 @@ class inventoryPutSerializer(serializers.Serializer):
 
         instance.save()
         return instance
-
-class inventoryDetailSerializer(serializers.Serializer):
-    logical_uid = serializers.CharField(max_length = 50)
-    name = serializers.CharField(max_length = 50)
-    qty = serializers.IntegerField()
 
 class inventorySerializer(serializers.Serializer):
     logical_uid = serializers.CharField(max_length=50)

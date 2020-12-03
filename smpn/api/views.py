@@ -85,7 +85,7 @@ class inventoryDetail(APIView):
 class inventoryView(APIView):
     @method_decorator(cache_page(60*60*2))
     @method_decorator(vary_on_cookie)
-    
+
     def get(self, request):
         inventories = inventory.objects.all()
         serializer = inventorySerializer(inventories, many=True)
@@ -100,7 +100,7 @@ class inventoryView(APIView):
 
     def put(self, request, logical_uid):
         saved_inventory = get_object_or_404(inventory.objects.all(), pk=logical_uid)
-        data = request.data.get('inventory')
+        data = request.data.get('Inventory')
         serializer = inventorySerializer(instance=saved_inventory, data=data, partial=True)
         if serializer.is_valid(raise_exception=True):
             inventory_saved = serializer.save()
