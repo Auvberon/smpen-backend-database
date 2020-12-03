@@ -35,7 +35,6 @@ class UserList(APIView):
     permission_classes = (permissions.AllowAny,)
 
     @method_decorator(cache_page(60*60*2))
-    @method_decorator(vary_on_cookie)
 
     def get(self, request):
         users = User.objects.all()
@@ -110,8 +109,7 @@ class inventoryView(APIView):
         return Response({"message": "Item with logical_uid `{}` has been deleted.".format(deleted_logical_uid)},status=204)
 
 class loggingView(APIView):
-    @method_decorator(cache_page(60*60*2))
-    @method_decorator(vary_on_cookie)
+
     def get(self, request):
         loggings = logging.objects.all()
         serializer = loggingSerializerGet(loggings, many=True)
