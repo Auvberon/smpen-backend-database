@@ -45,6 +45,14 @@ class inventoryDetailSerializer(serializers.Serializer):
     name = serializers.CharField(max_length = 50)
     qty = serializers.IntegerField()
 
+    def update(self, instance, validated_data):
+        instance.logical_uid = validated_data.get('logical_uid', instance.logical_uid)
+        instance.name = validated_data.get('name', instance.name)
+        instance.qty = validated_data.get('qty', instance.qty)
+
+        instance.save()
+        return instance
+
 class inventorySerializer(serializers.Serializer):
     logical_uid = serializers.CharField(max_length=50)
     name = serializers.CharField(max_length=50)

@@ -64,6 +64,15 @@ class inventoryDetail(APIView):
         serializer = inventoryDetailSerializer(snippet)
         return Response(serializer.data)
 
+    def put(self, request, logical_uid, format=None):
+        inventories = self.get_object(logical_uid)
+        serializer = inventoryDetailSerializer(inventories, data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+
 class inventoryView(APIView):
     def get(self, request):
         inventories = inventory.objects.all()
