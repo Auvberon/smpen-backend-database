@@ -83,8 +83,6 @@ class inventoryDetail(APIView):
         
 
 class inventoryView(APIView):
-    @method_decorator(cache_page(60*60*2))
-    @method_decorator(vary_on_cookie)
 
     def get(self, request):
         inventories = inventory.objects.all()
