@@ -12,7 +12,6 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ('username', 'password', 'user_permissions')
 
 class UserSerializerWithToken(serializers.ModelSerializer):
-
     token = serializers.SerializerMethodField()
     password = serializers.CharField(write_only=True)
 
@@ -44,11 +43,13 @@ class inventoryDetailSerializer(serializers.Serializer):
     logical_uid = serializers.CharField(max_length = 50)
     name = serializers.CharField(max_length = 50)
     qty = serializers.IntegerField()
+    status = serializers.BooleanField()
 
     def update(self, instance, validated_data):
         instance.logical_uid = validated_data.get('logical_uid', instance.logical_uid)
         instance.name = validated_data.get('name', instance.name)
         instance.qty = validated_data.get('qty', instance.qty)
+        instance.status = validated_data.get('status', instance.status)
 
         instance.save()
         return instance
@@ -57,6 +58,7 @@ class inventorySerializer(serializers.Serializer):
     logical_uid = serializers.CharField(max_length=50)
     name = serializers.CharField(max_length=50)
     qty = serializers.IntegerField()
+    status = serializers.BooleanField()
 
     def create(self, validated_data):
         return inventory.objects.create(**validated_data)
@@ -65,6 +67,7 @@ class inventorySerializer(serializers.Serializer):
         instance.logical_uid = validated_data.get('logical_uid', instance.logical_uid)
         instance.name = validated_data.get('name', instance.name)
         instance.qty = validated_data.get('qty', instance.qty)
+        status = validated_data.get('status', instance.status)
 
         instance.save()
         return instance
@@ -77,6 +80,28 @@ class loggingSerializerGet(serializers.Serializer):
     qty = serializers.IntegerField()
     time = serializers.CharField(max_length = 144)
     warehouse = serializers.CharField(max_length = 144)
+
+class loggingDetailSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    status = serializers.CharField(max_length=144)
+    qty = serializers.IntegerField()
+    time = serializers.CharField(max_length = 144)
+    warehouse = serializers.CharField(max_length = 144)
+
+    class Meta:
+        model = logging
+        fields = "__all__"
+
+    def update(self, instance, validated_data):
+        instance.id = validated_data.get('id', instance.id)
+        instance.status = validated_data.get('status', instance.status)
+        instance.qty = validated_data.get('qty', instance.qty)
+        instance.time = validated_data.get('time', instance.time)
+        instance.warehouse = validated_data.get('warehouse', instance.warehouse)
+
+        instance.save()
+        return instance
+
 
 class loggingSerializer(serializers.ModelSerializer):
     logicaluid = serializers.RelatedField(source='logical_uid', read_only=True)

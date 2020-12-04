@@ -11,7 +11,7 @@ class inventory(models.Model):
     logical_uid = models.CharField(primary_key = True, max_length = 50, unique = True)
     name = models.CharField(max_length = 50, null = True)
     qty = models.IntegerField(blank = True, null = True)
-    status = models.BooleanField(null = True, choices = CHOICES)
+    status = models.BooleanField(choices = CHOICES, default=True)
     def __str__(self):
         return self.logical_uid
 

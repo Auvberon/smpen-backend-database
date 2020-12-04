@@ -14,7 +14,7 @@ from rest_framework.decorators import api_view
 
 
 from .models import logging, inventory
-from .serializers import loggingSerializer, inventorySerializer, inventoryQtySerializer, inventoryDetailSerializer, UserSerializer, UserSerializerWithToken,loggingSerializerGet
+from .serializers import loggingSerializer, inventorySerializer, inventoryQtySerializer, inventoryDetailSerializer, UserSerializer, UserSerializerWithToken,loggingSerializerGet, loggingDetailSerializer
 
 @api_view(['GET'])
 def current_user(request):
@@ -107,6 +107,26 @@ class inventoryView(APIView):
         inventories = get_object_or_404(inventory.objects.all(), pk = deleted_logical_uid)
         inventories.delete()
         return Response({"message": "Item with logical_uid `{}` has been deleted.".format(deleted_logical_uid)},status=204)
+
+class loggingDetailView(APIView):
+    def get_object(self, id):
+        try:
+            return logging.objects.get(pk=id)
+        except logging.DoesNotExist:
+            raise Http404("Item not yet exist")
+
+    def get(self, request, id, format=None):
+        snippet = self.get_object(id)
+        serializer = loggingDetailSerializer(snippet)
+        return Response(serializer.data)
+
+    def put(self, request, id, format=None):
+        loggings = self.get_object(id)
+        serializer = loggingDetailSerializer(loggings, data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class loggingView(APIView):
 

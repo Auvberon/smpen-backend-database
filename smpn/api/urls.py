@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import loggingView, inventoryView, inventoryQty, inventoryDetail, UserList, current_user
+from .views import loggingView, inventoryView, inventoryQty, inventoryDetail, UserList, current_user, loggingDetailView
 
 app_name = "api"
 
@@ -16,6 +16,7 @@ urlpatterns = [
     path('inventory/delete/<deleted_logical_uid>', inventoryView.as_view()),
 
     path('logging/', loggingView.as_view()),
-    path('logging/update/<update_id>', loggingView.as_view()),
+    path('logging/detail/<id>', loggingDetailView.as_view()),
+    path('logging/update/<id>', loggingDetailView.as_view()),
     path('logging/delete/<delete_id>', loggingView.as_view()),
 ]
