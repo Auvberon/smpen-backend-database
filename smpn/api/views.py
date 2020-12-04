@@ -14,7 +14,7 @@ from rest_framework.decorators import api_view
 
 
 from .models import logging, inventory
-from .serializers import loggingSerializer, inventorySerializer, inventoryQtySerializer, inventoryDetailSerializer, UserSerializer, UserSerializerWithToken,loggingSerializerGet, loggingDetailSerializer
+from .serializers import loggingSerializer, inventorySerializer, inventoryQtySerializer, inventoryDetailSerializer, UserSerializer, UserSerializerWithToken,loggingSerializerGet, loggingDetailSerializer, inventoryHardwareSerializer
 
 @api_view(['GET'])
 def current_user(request):
@@ -75,6 +75,26 @@ class inventoryDetail(APIView):
     def put(self, request, logical_uid, format=None):
         inventories = self.get_object(logical_uid)
         serializer = inventoryDetailSerializer(inventories, data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class inventoryHardware(APIView):
+    def get_object(self, detailed_uid):
+        try:
+            return inventory.objects.get(pk=detailed_uid)
+        except inventory.DoesNotExist:
+            raise Http404("Item not yet exist")
+
+    def get(self, request, detailed_uid, format=None):
+        snippet = self.get_object(detailed_uid)
+        serializer = inventoryDetailSerializer(snippet)
+        return Response(serializer.data)
+
+    def put(self, request, logical_uid, format=None):
+        inventories = self.get_object(logical_uid)
+        serializer = inventoryHardwareSerializer(inventories, data = request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)

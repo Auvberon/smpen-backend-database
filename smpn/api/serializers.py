@@ -72,6 +72,19 @@ class inventorySerializer(serializers.Serializer):
         instance.save()
         return instance
 
+class inventoryHardwareSerializer(serializers.Serializer):
+    logical_uid = serializers.CharField(max_length=50)
+    qty = serializers.IntegerField()
+
+    def create(self, validated_data):
+        return inventory.objects.create(**validated_data)
+
+    def update(self, instance, validated_data):
+        instance.logical_uid = validated_data.get('logical_uid', instance.logical_uid)
+        instance.qty = validated_data.get('qty', instance.qty)
+
+        instance.save()
+        return instance
 
 class loggingSerializerGet(serializers.Serializer):
     id = serializers.IntegerField()
