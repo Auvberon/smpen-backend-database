@@ -90,7 +90,7 @@ DATABASES = {
         'PASSWORD' : 'GuyFawkes23',
         'HOST' : 'database-1.cdw4sr1bt67h.ap-southeast-1.rds.amazonaws.com',
         'PORT' : '5432',
-        'CONN_MAX_AGE' : 60
+        'CONN_MAX_AGE' : 0
     }
 }
 
