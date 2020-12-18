@@ -96,6 +96,7 @@ class loggingSerializerGet(serializers.Serializer):
 
 class loggingDetailSerializer(serializers.Serializer):
     id = serializers.IntegerField()
+    logical_uid = serializers.CharField(max_length=50)
     status = serializers.CharField(max_length=144)
     qty = serializers.IntegerField()
     time = serializers.CharField(max_length = 144)
