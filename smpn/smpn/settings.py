@@ -157,8 +157,11 @@ REST_FRAMEWORK = {
     ),
 }
 
+import datetime
+
 JWT_AUTH = {
-    'JWT_RESPONSE_PAYLOAD_HANDLER': 'smpn.utils.my_jwt_response_handler'
+    'JWT_RESPONSE_PAYLOAD_HANDLER': 'smpn.utils.my_jwt_response_handler',
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=2)
 }
 
 CORS_ORIGIN_ALLOW_ALL = True
